@@ -49,27 +49,27 @@ public class CuratorTest1 {
 //          .withMode(CreateMode.PERSISTENT_SEQUENTIAL)
 //          .forPath("/PERSISTENT_SEQUENTIAL_TEST2","PERSISTENT_SEQUENTIAL DATA".getBytes());
         //创建临时节点
-        cf.create()
-          .withMode(CreateMode.EPHEMERAL)
-          .forPath("/EPHEMERAL_TEST2","EPHEMERAL_TEST DATA".getBytes());
-        //创建临时有序节点
-        cf.create()
-          .withMode(CreateMode.EPHEMERAL_SEQUENTIAL)
-          .forPath("/EPHEMERAL_SEQUENTIAL_TEST2","EPHEMERAL_SEQUENTIAL_TEST DATA".getBytes());
-        //测试检查某个节点是否存在
-        new Thread(()->{
-            try {
-                while (true){
-                    Stat stat = cf.checkExists().forPath("/PERSISTENT_TEST1");
-                    Stat stat2 = cf.checkExists().forPath("/EPHEMERAL_TEST1");
-                    System.out.println("'/PERSISTENT_TEST1'是否存在： " + (stat != null ? true : false));
-                    System.out.println("'/EPHEMERAL_TEST1'是否存在： " + (stat2 != null ? true : false));
-                    TimeUnit.SECONDS.sleep(5);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
+//        cf.create()
+//          .withMode(CreateMode.EPHEMERAL)
+//          .forPath("/EPHEMERAL_TEST2","EPHEMERAL_TEST DATA".getBytes());
+//        //创建临时有序节点
+//        cf.create()
+//          .withMode(CreateMode.EPHEMERAL_SEQUENTIAL)
+//          .forPath("/EPHEMERAL_SEQUENTIAL_TEST2","EPHEMERAL_SEQUENTIAL_TEST DATA".getBytes());
+//        //测试检查某个节点是否存在
+//        new Thread(()->{
+//            try {
+//                while (true){
+//                    Stat stat = cf.checkExists().forPath("/PERSISTENT_TEST1");
+//                    Stat stat2 = cf.checkExists().forPath("/EPHEMERAL_TEST1");
+//                    System.out.println("'/PERSISTENT_TEST1'是否存在： " + (stat != null ? true : false));
+//                    System.out.println("'/EPHEMERAL_TEST1'是否存在： " + (stat2 != null ? true : false));
+//                    TimeUnit.SECONDS.sleep(5);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }).start();
 
         //获取某个节点数据
 //        System.out.println(new String(cf.getData().forPath("/PERSISTENT_TEST2")));

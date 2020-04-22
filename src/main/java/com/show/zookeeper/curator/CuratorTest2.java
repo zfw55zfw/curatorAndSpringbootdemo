@@ -104,7 +104,7 @@ public class CuratorTest2 {
 //        System.out.println("'/curator/del_key3'是否存在： " + (stat3 != null ? true : false));
 
 //         //级联删除子节点
-        cf.delete().guaranteed().deletingChildrenIfNeeded().forPath("/curator");
+//        cf.delete().guaranteed().deletingChildrenIfNeeded().forPath("/curator");
 
 
         /* 事务管理：碰到异常，事务会回滚
