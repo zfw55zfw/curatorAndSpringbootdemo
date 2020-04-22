@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+</head>
+
+<body>
+<table  id="set">
+    <thead>
+    <tr>
+        <td>学生编号</td>
+        <td>学生姓名</td>
+        <td>学生年龄</td>
+        <td>操作</td>
+        <!--<td>创建时间</td>-->
+        <!--<td>更新时间</td>-->
+    </tr>
+    </thead>
+</table>
+
+</body>
+<script>
+    var set = document.getElementById("set");
+    var largebtn = document.getElementById("largebtn");
+    init();
+    function init () {
+        $.ajax({
+            url: "initstudent",
+            contentType: "application/json;charset=utf-8", //如果采用requestbody那么一定要加
+            type: "POST",
+            datatype: "json",
+            success: function (res) {
+                console.log(res);
+                console.log(eval(res));
+
+                $('#set').dataTable({
+                    data: eval(res),
+                    destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题
+                    columns: [
+                        {data: "studentId"},
+                        {data: "studentName"},
+                        {data: "studentAge"},
+                        {data: null},
+//                        {data: "crtTime"},
+//                        {data: "updTime"},
+
+                    ],
+//                    //自定义列
+
+                    columnDefs: [
+                        {
+                            targets: 3,
+                            render: function (data, type, full, meta) {
+                                //return "<input type = 'checkbox' name = 'groupcheck' > "
+                                var a1="<a  href='toModify.do?studentName="+data.studentName+"'>修改</a> "
+                                var a2="<a  href='deleteStudent.do?studentId="+data.studentId+"'>删除</a> "
+                                return a1+a2;
+
+                            }
+                        }
+
+                    ],
+                    //定义语言
+                    "oLanguage": {
+                        "sLengthMenu": "每页显示 _MENU_ 条记录",
+                        "sZeroRecords": "抱歉， 没有找到",
+                        "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                        "sInfoEmpty": "没有数据",
+                        "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+                        "oPaginate": {
+                            "sFirst": "首页",
+                            "sPrevious": "前一页",
+                            "sNext": "后一页",
+                            "sLast": "尾页"
+                        },
+                        "sZeroRecords": "没有检索到数据",
+                    }
+                });
+
+
+            },
+            error: function (datas) {
+            }
+        });
+    }
+
+</script>
+</html>
